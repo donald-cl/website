@@ -12,10 +12,21 @@
                 margin: 20px 0 0 20px;
             }
             .grid {
-                padding: 100px;
                 margin-left: auto;
                 margin-right: auto;
-                width: 85%;
+                width: 70%;
+                margin-bottom: 100px;
+            }
+            .job-item {
+                width: 300px;
+                height: 300px;
+                max-height: 300px;
+                padding: 10px;
+                background-color: #ddd;
+                margin-bottom: 20px;
+                border-radius: 3px;
+                box-shadow: 5px 5px 20px #bbb;
+                border-bottom: 5px solid #aaa;
             }
             .grid-item {
                 width: 220px;
@@ -26,6 +37,10 @@
                 margin-bottom: 20px;
                 border-radius: 3px;
                 box-shadow: 5px 5px 20px #bbb;
+                border-bottom: 5px solid #aaa;
+            }
+            .project-color {
+
             }
             .project-details {
                 height: 100px;
@@ -34,15 +49,34 @@
             }
             .grid-item:hover {
                 background-color: #ccc;
-                box-shadow: 7px 7px 10px #888;
+            }
+            .job-hero img {
+                overflow-y: auto;
+                width: 280px;
+                max-height: 120px;
             }
             .project-hero img {
+                overflow-y: auto;
                 width: 200px;
-                height: 120px;
+                max-height: 120px;
             }
         </style>
     </head>
     <body>
+        <div class="row-fluid" style="margin-left: auto; margin-right: auto; width: 65%;"><h1 style="font-size: 70px;">Donald Hui</h1></div>
+        <div class="grid jobs row-fluid">
+            <div class="column" id="job-column0">
+            </div>
+
+            <div class="column" id="job-column1">
+            </div>
+
+            <div class="column" id="job-column2">
+            </div>
+
+            <div class="column" id="job-column3">
+            </div>
+        </div>
         <div class="grid row-fluid">
 
             <div class="column" id="column0">
@@ -59,14 +93,29 @@
 
         </div>
     </body>
+    <script type="text/template" id="jobTemplate">
+        <div class="job-item">
+            <div class="project-hero">
+                <img data-src=<%= hero_img %> src=<%= hero_img %> class="img-rounded"></img>
+            </div>
+            <div class="job-content">
+                <div class="project-title">
+                    <div class="project-color"></div><h3><%= title %></h3>
+                </div>
+                <div class="job-details">
+                    <%= description %>
+                </div>
+            </div>
+        </div>
+    </script>
     <script type="text/template" id="projectTemplate">
         <div class="grid-item">
             <div class="project-hero">
-                <img data-src=<%= hero_img %> class="img-rounded"></img>
+                <img data-src=<%= hero_img %> src=<%= hero_img %> class="img-rounded"></img>
             </div>
             <div class="project-content">
                 <div class="project-title">
-                    <h3><%= title %></h3>
+                    <div class="project-color"></div><h3><%= title %></h3>
                 </div>
                 <div class="project-details">
                     <%= description %>
@@ -81,7 +130,25 @@
             }
         });
 
-        column1 = Array();
+        jobItemView = Backbone.View.extend({
+            tagName: 'div',
+            className: 'job-item',
+            initialize: function() {
+            },
+            render: function() {
+                var template = _.template( $('#jobTemplate').html(), this.model.attributes);
+                this.$el.html(template)
+                console.log('rendered');
+            }
+        });
+
+        twitterJob = new gridItem({
+            title: 'Twitter, Inc.',
+            description: 'Software Engineering Intern',
+            hero_img: 'holder.js/280x120',
+        });
+
+        twitterView = new jobItemView({model: twitterJob});
 
         gridItemView = Backbone.View.extend({
             tagName: 'div',
@@ -91,7 +158,6 @@
             render: function() {
                 var template = _.template( $('#projectTemplate').html(), this.model.attributes);
                 this.$el.html(template)
-                console.log('rendered');
             }
         });
 
@@ -112,7 +178,7 @@
         crawly = new gridItem({
             title: 'Crawly.py',
             description: 'A webapp that lets you create and cusotmize your own web crawler and visualize its progress in real-time',
-            hero_img: 'holder.js/200x120',
+            hero_img: 'crawly.png',
         });
 
         dealBreaker = new gridItem({
@@ -173,13 +239,29 @@
         ideaMachineView = new gridItemView({model: ideaMachine});
 
         columns = Array();
+        jobColumns = Array();
 
-        var NUM_COLUMNS = 4;
+        var JOB_NUM_COLUMNS = 3;
+        var PROJ_NUM_COLUMNS = 4;
 
-        for (var i = 0; i < NUM_COLUMNS; i++) {
+        for (var i = 0; i < JOB_NUM_COLUMNS; i++) {
+            job = new columnView({el : $("#job-column" + i)});
+            jobColumns.push(job);
+        }
+
+        for (var i = 0; i < PROJ_NUM_COLUMNS; i++) {
             column = new columnView({el : $("#column" + i)});
             columns.push(column);
         }
+
+        jobColumns[0].gridItems.push(twitterView);
+        jobColumns[0].render();
+
+        jobColumns[1].gridItems.push(twitterView);
+        jobColumns[1].render();
+
+        jobColumns[2].gridItems.push(twitterView);
+        jobColumns[2].render();
 
         columns[0].gridItems.push(crawlyView);
         columns[0].gridItems.push(dealBreakerView);
