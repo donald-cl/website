@@ -1,0 +1,201 @@
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="holder.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+        <style>
+            .column {
+                float: left;
+                margin: 20px 0 0 20px;
+            }
+            .grid {
+                padding: 100px;
+                margin-left: auto;
+                margin-right: auto;
+                width: 85%;
+            }
+            .grid-item {
+                width: 220px;
+                height: 300px;
+                max-height: 300px;
+                padding: 10px;
+                background-color: #ddd;
+                margin-bottom: 20px;
+                border-radius: 3px;
+                box-shadow: 5px 5px 20px #bbb;
+            }
+            .project-details {
+                height: 100px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            .grid-item:hover {
+                background-color: #ccc;
+                box-shadow: 7px 7px 10px #888;
+            }
+            .project-hero img {
+                width: 200px;
+                height: 120px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="grid row-fluid">
+
+            <div class="column" id="column0">
+            </div>
+
+            <div class="column" id="column1">
+            </div>
+
+            <div class="column" id="column2">
+            </div>
+
+            <div class="column" id="column3">
+            </div>
+
+        </div>
+    </body>
+    <script type="text/template" id="projectTemplate">
+        <div class="grid-item">
+            <div class="project-hero">
+                <img data-src=<%= hero_img %> class="img-rounded"></img>
+            </div>
+            <div class="project-content">
+                <div class="project-title">
+                    <h3><%= title %></h3>
+                </div>
+                <div class="project-details">
+                    <%= description %>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/javascript">
+
+        gridItem = Backbone.Model.extend({
+            initialize: function() {
+            }
+        });
+
+        column1 = Array();
+
+        gridItemView = Backbone.View.extend({
+            tagName: 'div',
+            className: 'grid-item',
+            initialize: function() {
+            },
+            render: function() {
+                var template = _.template( $('#projectTemplate').html(), this.model.attributes);
+                this.$el.html(template)
+                console.log('rendered');
+            }
+        });
+
+        columnView = Backbone.View.extend({
+            initialize: function() {
+                this.gridItems = Array();
+            },
+            render: function() {
+                var html = '';
+                for (var i = 0; i < this.gridItems.length; i++) {
+                    this.gridItems[i].render();
+                    html += this.gridItems[i].$el.html();
+                }
+                this.$el.html(html);
+            }
+        });
+
+        crawly = new gridItem({
+            title: 'Crawly.py',
+            description: 'A webapp that lets you create and cusotmize your own web crawler and visualize its progress in real-time',
+            hero_img: 'holder.js/200x120',
+        });
+
+        dealBreaker = new gridItem({
+            title: 'Deal Breaker',
+            description: 'Aggregates daily-deals using web-crawlers and API calls to popular deal websites like GroupOn, Dealfind, Livingsocial.',
+            hero_img: 'holder.js/200x120',
+        });
+
+        starcraftHotkeyTrainer = new gridItem({
+            title: 'Starcraft Hotkey Trainer',
+            description: 'An Android app with over 20,000 downloads aimed at helping newcomers to Starcraft learn keyboard shortcuts',
+            hero_img: 'holder.js/200x120',
+        });
+
+        eyeKwah = new gridItem({
+            title: 'eyeKwah',
+            description: 'Online shopping notifier that aggregates price-drops that fall within user-specified margins.',
+            hero_img: 'holder.js/200x120',
+        });
+
+        twitterNewsPaper = new gridItem({
+            title: 'TwitterNewsPaper',
+            description: 'Twitter newspaper filter that would poll twitter news feeds of notable and reputable users based on user scores and filter them based on interesting categories. These tweets are presented in a friendly manner similar to an online newspaper, separating tweets into categories such as sports, politics, technology, science and celebrities.',
+            hero_img: 'holder.js/200x120',
+        });
+
+        uwStudyBuddy = new gridItem({
+            title: 'UW Study Buddy',
+            description: 'Social networking website for the University of Waterloo with a focus on helping students meet new students through study habit matches.',
+            hero_img: 'holder.js/200x120',
+        });
+
+        plank = new gridItem({
+            title: 'plank.io',
+            description: 'Launch Hackathon project, Yammer award winner. A bootstrap application that helps companies onboard new hires through automated account creation and dependency management',
+            hero_img: 'holder.js/200x120',
+        });
+
+        malivent = new gridItem({
+            title: 'Malivent',
+            description: 'A website off-campus dons can use to plan, rate and analyze events.',
+            hero_img: 'holder.js/200x120',
+        });
+
+        ideaMachine = new gridItem({
+            title: 'ideaMachine',
+            description: 'This is not a personal project, but I have an archive of hundreds of start-up ideas and interesting personal projects I choose from when I need something to work on.',
+            hero_img: 'holder.js/200x120',
+        });
+
+        crawlyView = new gridItemView({model: crawly});
+        dealBreakerView = new gridItemView({model: dealBreaker});
+        starcraftHotkeyTrainerView = new gridItemView({model: starcraftHotkeyTrainer});
+        eyeKwahView = new gridItemView({model: eyeKwah});
+        twitterNewsPaperView = new gridItemView({model: twitterNewsPaper});
+        uwStudyBuddyView = new gridItemView({model: uwStudyBuddy});
+        maliventView = new gridItemView({model: malivent});
+        ideaMachineView = new gridItemView({model: ideaMachine});
+
+        columns = Array();
+
+        var NUM_COLUMNS = 4;
+
+        for (var i = 0; i < NUM_COLUMNS; i++) {
+            column = new columnView({el : $("#column" + i)});
+            columns.push(column);
+        }
+
+        columns[0].gridItems.push(crawlyView);
+        columns[0].gridItems.push(dealBreakerView);
+        columns[0].render();
+
+        columns[1].gridItems.push(starcraftHotkeyTrainerView);
+        columns[1].gridItems.push(eyeKwahView);
+        columns[1].render();
+
+        columns[2].gridItems.push(twitterNewsPaperView);
+        columns[2].gridItems.push(uwStudyBuddyView);
+        columns[2].render();
+
+        columns[3].gridItems.push(maliventView);
+        columns[3].gridItems.push(ideaMachineView);
+        columns[3].render();
+
+    </script>
+</html>
