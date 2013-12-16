@@ -47,6 +47,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
             }
+            .job-item:hover,
             .grid-item:hover {
                 background-color: #ccc;
             }
@@ -148,7 +149,21 @@
             hero_img: 'holder.js/280x120',
         });
 
+        contextLogicJob =  new gridItem({
+            title: 'ContextLogic, Inc.',
+            description: 'Software Engineering Itern',
+            hero_img: 'holder.js/280x120',
+        });
+
+        taggedJob = new gridItem({
+            title: 'Tagged, Inc.',
+            description: 'Software Engineering Itern',
+            hero_img: 'holder.js/280x120',
+        });
+
         twitterView = new jobItemView({model: twitterJob});
+        contextLogicView = new jobItemView({model: contextLogicJob});
+        taggedView = new jobItemView({model: taggedJob});
 
         gridItemView = Backbone.View.extend({
             tagName: 'div',
@@ -257,10 +272,10 @@
         jobColumns[0].gridItems.push(twitterView);
         jobColumns[0].render();
 
-        jobColumns[1].gridItems.push(twitterView);
+        jobColumns[1].gridItems.push(contextLogicView);
         jobColumns[1].render();
 
-        jobColumns[2].gridItems.push(twitterView);
+        jobColumns[2].gridItems.push(taggedView);
         jobColumns[2].render();
 
         columns[0].gridItems.push(crawlyView);
