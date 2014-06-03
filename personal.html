@@ -14,7 +14,7 @@
             .grid {
                 margin-left: auto;
                 margin-right: auto;
-                width: 70%;
+                width: 80%;
                 margin-bottom: 100px;
             }
             .job-item {
@@ -30,7 +30,7 @@
             }
             .grid-item {
                 width: 220px;
-                height: 300px;
+                height: 305px;
                 max-height: 300px;
                 padding: 10px;
                 background-color: #ddd;
@@ -42,7 +42,23 @@
             .project-color {
 
             }
+            .project-title {
+                border-bottom: 2px dotted #ccc;
+            }
+            .project-title h3 {
+                margin-top: 2px !important;
+                margin-left: auto;
+                margin-right: auto;
+                font-size: 17px;
+                text-align: center;
+            }
+            .project-content {
+                background: white;
+                padding: 5px;
+                border-radius: 4px;
+            }
             .project-details {
+                margin-top: 5px;
                 height: 100px;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -52,8 +68,9 @@
                 background-color: #ccc;
             }
             .job-hero img {
-                overflow-y: auto;
-                width: 280px;
+                overflow-x: hidden;
+                overflow-y: hidden;
+                max-width: 200px;
                 max-height: 120px;
             }
             .project-hero img {
@@ -61,10 +78,15 @@
                 width: 200px;
                 max-height: 120px;
             }
+            .job-position {
+                border-bottom: 2px dotted #000;
+            }
         </style>
     </head>
     <body>
-        <div class="row-fluid" style="margin-left: auto; margin-right: auto; width: 65%;"><h1 style="font-size: 70px;">Donald Hui</h1></div>
+        <div class="row-fluid" style="margin-left: auto; margin-right: auto; width: 65%;">
+            <h1 style="font-size: 70px;">Donald Hui</h1>
+        </div>
         <div class="grid jobs row-fluid">
             <div class="column" id="job-column0">
             </div>
@@ -96,15 +118,16 @@
     </body>
     <script type="text/template" id="jobTemplate">
         <div class="job-item">
-            <div class="project-hero">
+            <div class="job-hero">
                 <img data-src=<%= hero_img %> src=<%= hero_img %> class="img-rounded"></img>
             </div>
             <div class="job-content">
-                <div class="project-title">
+                <div class="job-title">
                     <div class="project-color"></div><h3><%= title %></h3>
                 </div>
                 <div class="job-details">
-                    <%= description %>
+                    <div class="job-position"><%= position %></div>
+                    <div class="job-desc"><%= description %></div>
                 </div>
             </div>
         </div>
@@ -145,20 +168,23 @@
 
         twitterJob = new gridItem({
             title: 'Twitter, Inc.',
-            description: 'Software Engineering Intern',
-            hero_img: 'holder.js/280x120',
+            position: 'Software Engineering Intern',
+            description: "Full-stack Drupal engineer part of the Gazebo team responsible for building all of Twitter's micro, vertical websites like blog.twitter.com",
+            hero_img: 'twitter-logo.jpg',
         });
 
         contextLogicJob =  new gridItem({
             title: 'ContextLogic, Inc.',
-            description: 'Software Engineering Itern',
-            hero_img: 'holder.js/280x120',
+            position: 'Software Engineering Itern',
+            description: 'Full-stack engineer that developed and A/B tested new e-mail campaigns and mobile notifications with the aim of driving growth and engagement',
+            hero_img: 'contextlogic-logo.jpg',
         });
 
         taggedJob = new gridItem({
             title: 'Tagged, Inc.',
-            description: 'Software Engineering Itern',
-            hero_img: 'holder.js/280x120',
+            position: 'Software Engineering Itern',
+            description: "Worked on the Security team as part of the anti-spam team. Developed new pipelines and feature extractors that fed Tagged's Machine Learning models for classifying spam and abuse",
+            hero_img: 'tagged-logo.jpeg',
         });
 
         twitterView = new jobItemView({model: twitterJob});
@@ -205,25 +231,25 @@
         starcraftHotkeyTrainer = new gridItem({
             title: 'Starcraft Hotkey Trainer',
             description: 'An Android app with over 20,000 downloads aimed at helping newcomers to Starcraft learn keyboard shortcuts',
-            hero_img: 'holder.js/200x120',
+            hero_img: 'hotkey.png',
         });
 
         eyeKwah = new gridItem({
             title: 'eyeKwah',
             description: 'Online shopping notifier that aggregates price-drops that fall within user-specified margins.',
-            hero_img: 'holder.js/200x120',
+            hero_img: 'eyekwah.png',
         });
 
         twitterNewsPaper = new gridItem({
             title: 'TwitterNewsPaper',
             description: 'Twitter newspaper filter that would poll twitter news feeds of notable and reputable users based on user scores and filter them based on interesting categories. These tweets are presented in a friendly manner similar to an online newspaper, separating tweets into categories such as sports, politics, technology, science and celebrities.',
-            hero_img: 'holder.js/200x120',
+            hero_img: 'newspaper.png',
         });
 
         uwStudyBuddy = new gridItem({
             title: 'UW Study Buddy',
             description: 'Social networking website for the University of Waterloo with a focus on helping students meet new students through study habit matches.',
-            hero_img: 'holder.js/200x120',
+            hero_img: 'studybuddy.png',
         });
 
         plank = new gridItem({
@@ -235,13 +261,13 @@
         malivent = new gridItem({
             title: 'Malivent',
             description: 'A website off-campus dons can use to plan, rate and analyze events.',
-            hero_img: 'holder.js/200x120',
+            hero_img: 'malivent.png',
         });
 
         ideaMachine = new gridItem({
             title: 'ideaMachine',
             description: 'This is not a personal project, but I have an archive of hundreds of start-up ideas and interesting personal projects I choose from when I need something to work on.',
-            hero_img: 'holder.js/200x120',
+            hero_img: 'ideas.png',
         });
 
         crawlyView = new gridItemView({model: crawly});
